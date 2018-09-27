@@ -1,7 +1,7 @@
 #pragma once
 
-#define x_bins				260
-#define y_bins				30
+#define X_BINS				260
+#define Y_BINS				30
 #define energy_max_range	300000
 #define psd_max_range		2.0
 
@@ -30,7 +30,7 @@ private:
 	header_2dh m_header_data;
 
 	//array to hold the two-dimensional histogram tallies
-	unsigned short m_twoDH_pmt[x_bins][y_bins];
+	unsigned short m_twoDH_pmt[X_BINS][Y_BINS];
 
 public:
 	//constructors
@@ -43,8 +43,8 @@ public:
 	int get2DHXArrayIndex();
 	unsigned int get2DHYArrayIndex();
 
-	float get2DHEnergyBinSize() { return static_cast<float>(energy_max_range / x_bins); }
-	float get2DHPSDBinSize() { return static_cast<float>(psd_max_range / y_bins); }
+	float get2DHEnergyBinSize() { return static_cast<float>(energy_max_range / X_BINS); }
+	float get2DHPSDBinSize() { return static_cast<float>(psd_max_range / Y_BINS); }
 
 	header_2dh * get2DHHeader() 
 	{

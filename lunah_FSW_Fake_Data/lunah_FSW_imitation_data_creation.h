@@ -32,8 +32,10 @@
 #define hv3					200
 #define CPS_MAX_EVENTS		139
 #define CPS_HEADER_SIZE		81
+#define CPS_EVENT_SIZE		14
 #define EVTS_MAX_EVENTS		244
 #define EVTS_HEADER_SIZE	81
+#define EVTS_EVENT_SIZE		8
 #define TwoDH_HEADER_SIZE	69
 #define SYNC_MARKER_SIZE	4
 #define CHECKSUM_SIZE		4

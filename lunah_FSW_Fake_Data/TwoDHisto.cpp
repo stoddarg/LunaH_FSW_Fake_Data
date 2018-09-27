@@ -12,8 +12,8 @@ TwoDHisto::TwoDHisto(int PMT_ID)
 	m_header_data{PMT_ID, 0, 0, 0, 0},
 	m_twoDH_pmt{}
 {
-	m_x_binsize = static_cast<float>(energy_max_range / x_bins);
-	m_y_binsize = static_cast<float>(psd_max_range / y_bins);
+	m_x_binsize = static_cast<float>(energy_max_range / X_BINS);
+	m_y_binsize = static_cast<float>(psd_max_range / Y_BINS);
 }
 
 //default destructor
@@ -30,7 +30,7 @@ int TwoDHisto::get2DHXArrayIndex()
 	int bin_number{ 0 };
 	//test the Energy number
 	if (0 <= m_x_bin_number)
-		if (m_x_bin_number < (x_bins - 1))
+		if (m_x_bin_number < (X_BINS - 1))
 			bin_number = m_x_bin_number;	//the x bin is in the range
 		else
 			bin_number = 0x3FF;	//outside the range, set to max value for 10 bits
@@ -49,7 +49,7 @@ unsigned int TwoDHisto::get2DHYArrayIndex()
 	unsigned int bin_number{ 0 };
 	//test the Energy number
 	if (0 <= m_y_bin_number)
-		if (m_y_bin_number < (y_bins - 1))
+		if (m_y_bin_number < (Y_BINS - 1))
 		{
 			//the x bin is in the range
 			bin_number = m_y_bin_number;	
@@ -77,11 +77,11 @@ void TwoDHisto::tally_2DH(float energy_value, float psd_value)
 	//sort the bin numbers based on the defined ranges
 	if (0 <= energy_bin)
 	{
-		if (energy_bin <= (x_bins - 1))
+		if (energy_bin <= (X_BINS - 1))
 		{
 			if (0 <= psd_bin)
 			{
-				if (psd_bin <= (y_bins - 1))
+				if (psd_bin <= (Y_BINS - 1))
 				{
 					//cast the bin numbers as ints so that we can use them as array indices
 					m_x_bin_number = static_cast<int>(energy_bin);
@@ -99,7 +99,7 @@ void TwoDHisto::tally_2DH(float energy_value, float psd_value)
 		{
 			if (0 <= psd_bin)
 			{
-				if (psd_bin <= (y_bins - 1))
+				if (psd_bin <= (Y_BINS - 1))
 					++m_right_oor;
 				else
 					++m_above_oor;
@@ -112,7 +112,7 @@ void TwoDHisto::tally_2DH(float energy_value, float psd_value)
 	{
 		if (0 <= psd_bin)
 		{
-			if (psd_bin <= (y_bins - 1))
+			if (psd_bin <= (Y_BINS - 1))
 				++m_left_oor;
 			else
 				++m_above_oor;
