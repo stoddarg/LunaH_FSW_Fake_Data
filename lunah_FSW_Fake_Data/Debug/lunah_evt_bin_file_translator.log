@@ -1,0 +1,6 @@
+﻿  lunah_evt_bin_file_translator.cpp
+k:\users\gstoddard\miscellany\lunah fsw imitation data product packet creation\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator.cpp(412): warning C4293: '<<': shift count negative or too big, undefined behavior
+k:\users\gstoddard\miscellany\lunah fsw imitation data product packet creation\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator.cpp(413): warning C4293: '<<': shift count negative or too big, undefined behavior
+k:\users\gstoddard\miscellany\lunah fsw imitation data product packet creation\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator.cpp(414): warning C4293: '<<': shift count negative or too big, undefined behavior
+k:\users\gstoddard\miscellany\lunah fsw imitation data product packet creation\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator\lunah_evt_bin_file_translator.cpp(415): warning C4293: '<<': shift count negative or too big, undefined behavior
+  lunah_evt_bin_file_translator.vcxproj -> K:\users\GStoddard\Miscellany\LunaH FSW Imitation Data Product Packet Creation\lunah_evt_bin_file_translator\Debug\lunah_evt_bin_file_translator.exe
