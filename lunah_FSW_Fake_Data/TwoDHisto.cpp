@@ -43,7 +43,7 @@ int TwoDHisto::get2DHXArrayIndex()
 
 //getter function for the array index
 //returns the bin number if it's within the accepted values
-// otherwise returns 0x3FF (max value for the bit field reporting bin number
+// otherwise returns 0xFC000000 (max value for the bit field reporting bin number
 unsigned int TwoDHisto::get2DHYArrayIndex()
 {
 	unsigned int bin_number{ 0 };
