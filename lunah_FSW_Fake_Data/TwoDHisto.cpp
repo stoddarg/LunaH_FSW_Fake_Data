@@ -24,7 +24,7 @@ TwoDHisto::~TwoDHisto()
 
 //getter function for the array index
 //returns the bin number if it's within the accepted values
-// otherwise returns 0x3FF (max value for the bit field reporting bin number
+// otherwise returns 0x3FF (max value for the bit field reporting bin number)
 int TwoDHisto::get2DHXArrayIndex()
 {
 	int bin_number{ 0 };
@@ -43,7 +43,7 @@ int TwoDHisto::get2DHXArrayIndex()
 
 //getter function for the array index
 //returns the bin number if it's within the accepted values
-// otherwise returns 0xFC000000 (max value for the bit field reporting bin number
+// otherwise returns 0x3F (max value for the bit field reporting bin number)
 unsigned int TwoDHisto::get2DHYArrayIndex()
 {
 	unsigned int bin_number{ 0 };
@@ -52,15 +52,14 @@ unsigned int TwoDHisto::get2DHYArrayIndex()
 		if (m_y_bin_number < (Y_BINS - 1))
 		{
 			//the x bin is in the range
-			bin_number = m_y_bin_number;	
-			bin_number = bin_number << 26;
+			bin_number = m_y_bin_number;
 			//mask off any bits that were shifted in during the previous operation
-			bin_number &= 0xFC000000;
+			bin_number &= 0x3F;
 		}
 		else
-			bin_number = 0xFC000000;	//outside the range, set to max value for 10 bits
+			bin_number = 0x3F;	//outside the range, set to max value for 10 bits
 	else
-		bin_number = 0xFC000000;
+		bin_number = 0x3F;
 
 	return bin_number;
 }

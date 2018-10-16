@@ -10,10 +10,14 @@ CPSDataProduct::CPSDataProduct(int ecut_low, int ecut_high, int ecut_w_low, int 
 	m_psd_cut_high(psd_high),
 	m_psd_wide_low(psd_w_low),
 	m_psd_wide_high(psd_w_high),
-	m_cps_data{ 0xAA, 0, 0, 0, 0, 0, 0 }
+	m_cps_data{ 0xAA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 {
 	//initialize member variables:
 	m_recorded_time = 0;
+	m_neutrons_wPSD = 0;
+	m_neutrons_wide_cut = 0;
+	m_neutrons_NoPSD = 0;
+	m_num_events_over_threshold = 0;
 }
 
 
@@ -27,20 +31,29 @@ void CPSDataProduct::cpsUpdateTallies(float energy, float psd)
 {
 	//check to see if the values are counted in any of the 4 tallies
 	//is event greater than 10 MeV?
-	if (energy > 100000)	//make the value here whatever 10 MeV is
-		m_cps_data.num_events_over_threshold++;
+	if (energy > 100000) {	//make the value here whatever 10 MeV is
+		m_num_events_over_threshold++;
+		m_cps_data.num_events_over_threshold_MSB = m_num_events_over_threshold >> 8;
+		m_cps_data.num_events_over_threshold_LSB = static_cast<unsigned char>(m_num_events_over_threshold);
+	}
 
 	//does the event fit into the no PSD cut?
 	if (energy > m_ecut_low)
-		if (energy < m_ecut_high)
-			m_cps_data.neutrons_NoPSD++;
+		if (energy < m_ecut_high) {
+			m_neutrons_NoPSD++;
+			m_cps_data.neutrons_NoPSD_MSB = m_neutrons_NoPSD >> 8;
+			m_cps_data.neutrons_NoPSD_LSB = static_cast<unsigned char>(m_neutrons_NoPSD);
+		}
 
 	//check for neutrons in the primary cuts
 	if (energy > m_ecut_low)
 		if (energy < m_ecut_high)
 			if (psd > m_psd_cut_low)
-				if (psd < m_psd_cut_high)
-					m_cps_data.neutrons_wPSD++;
+				if (psd < m_psd_cut_high) {
+					m_neutrons_wPSD++;
+					m_cps_data.neutrons_wPSD_MSB = m_neutrons_wPSD >> 8;
+					m_cps_data.neutrons_wPSD_LSB = static_cast<unsigned char>(m_neutrons_wPSD);
+				}
 
 	//check for neutrons in the secondary cuts
 	//this number should be larger than the neutrons w/psd cut because these cuts are wider, but
@@ -48,9 +61,11 @@ void CPSDataProduct::cpsUpdateTallies(float energy, float psd)
 	if (energy > m_ecut_wide_low)
 		if (energy < m_ecut_wide_high)
 			if (psd > m_psd_wide_low)
-				if (psd < m_psd_wide_high)
-					m_cps_data.neutrons_wide_cut++;
-
+				if (psd < m_psd_wide_high) {
+					m_neutrons_wide_cut++;
+					m_cps_data.neutrons_wide_cut_MSB = m_neutrons_wide_cut >> 8;
+					m_cps_data.neutrons_wide_cut_LSB = static_cast<unsigned char>(m_neutrons_wide_cut);
+				}
 	return;
 }
 
@@ -69,7 +84,7 @@ bool CPSDataProduct::cpsCheckTime(unsigned int time)
 	{
 		mybool = true;
 		//set the current recorded time as the FPGA Time of First Event in 1s Interval
-		m_cps_data.time = m_recorded_time;
+		m_time = m_recorded_time;
 		//update the recorded time, the next time to report an event is 1s after this time
 		m_recorded_time = time;	
 	}
